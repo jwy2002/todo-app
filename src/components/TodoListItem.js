@@ -6,7 +6,7 @@ import { MdCheckBoxOutlineBlank,
 import './TodoListItem.scss';
 import cn from 'classnames';
 
-const TodoListItem = ({todo, onRemove, onToggle}) => {
+const TodoListItem = ({todo, onRemove, onToggle, style}) => {
 
     const { id, text, checked } = todo;
 
@@ -19,16 +19,20 @@ const TodoListItem = ({todo, onRemove, onToggle}) => {
     }, [onToggle, id]);
 
     return (
-        <div className="TodoListItem">
-            <div className={cn('checkbox', { checked })} onClick={onClickCheck}>
-                { checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank /> }
-                <div className="text">{text}</div>
-            </div>
-            <div className="remove" onClick={onClick}>
-                <MdRemoveCircleOutline />
+        <div className="TodoListItem-virtualized" style={style}>
+            <div className="TodoListItem">
+                <div className={cn('checkbox', { checked })} onClick={onClickCheck}>
+                    { checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank /> }
+                    <div className="text">{text}</div>
+                </div>
+                <div className="remove" onClick={onClick}>
+                    <MdRemoveCircleOutline />
+                </div>
             </div>
         </div>
     );
 };
 
-export default TodoListItem;
+//component의 props가 수정되지 않는 경우 리렌터링 하지 않음
+export default React.memo(TodoListItem,
+    (prevProps, nextProps)=>prevProps.todo === nextProps.todo);
