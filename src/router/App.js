@@ -1,8 +1,10 @@
 import React from 'react';
-import {Link, Route} from 'react-router-dom';
+import {Link, Route, Switch} from 'react-router-dom';
 import About from './About';
 import Home from './Home';
 import Profile from "./Profile";
+import Profiles from "./Profiles";
+import HistorySample from "./HistorySample";
 
 const App = () => {
     return (
@@ -13,15 +15,32 @@ const App = () => {
                 <li><Link to="/info">정보</Link></li>
                 <li><Link to="/info?detail=true">정보True</Link></li>
 
+                <li><Link to="/profiles">프로필</Link></li>
+
                 <li><Link to="/profile/velopert">velopert 프로필</Link></li>
                 <li><Link to="/profile/gildong">gildong 프로필</Link></li>
+
+                <li><Link to="/history">History 예제</Link></li>
             </ul>
             <hr />
-            <Route path="/" component={Home} exact={true} />
-            <Route path={['/about','/info']} component={About} />
-            <Route path="/profile/:username" component={Profile} />
-            {/*<Route path="/" component={Home} exact={true} />*/}
-            {/*<Route path={['/about', '/info']} component={About} />*/}
+            <Switch>
+                <Route path="/" component={Home} exact={true} />
+                <Route path={['/about','/info']} component={About} />
+
+                <Route path="/profiles" component={Profiles} />
+                <Route path="/profile/:username" component={Profile} />
+
+                <Route path="/history" component={HistorySample} />
+
+                <Route
+                    render={({location}) => (
+                        <div>
+                            <h2>이 페이지는 존재하지 않습니다.</h2>
+                            <p>{location.pathname}</p>
+                        </div>
+                    )}
+                    />
+            </Switch>
         </div>
     );
 };
