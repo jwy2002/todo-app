@@ -5,7 +5,6 @@ export const LOADING = 'LOADING';
 export const SUCCESS = 'SUCCESS';
 export const ERROR = 'ERROR';
 
-
 function reducer(state, action) {
     switch(action.type) {
         case LOADING:
