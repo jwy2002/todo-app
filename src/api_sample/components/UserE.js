@@ -5,7 +5,7 @@ function UserE({id}) {
     const state = useUsersState();
     const dispatch = useUsersDispatch();
     useEffect(()=> {
-        getUser(dispatch, id);
+        getUser(dispatch, id).then(r => console.log('getUser End'));
     }, [dispatch, id]);
 
     const { data: user, loading, error } = state.user;
